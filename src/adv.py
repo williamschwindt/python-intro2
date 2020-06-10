@@ -1,4 +1,6 @@
 from room import Room
+from player import Player
+import textwrap
 
 # Declare all the rooms
 
@@ -39,6 +41,8 @@ room['treasure'].s_to = room['narrow']
 
 # Make a new player object that is currently in the 'outside' room.
 
+player = Player('william', 'outside')
+
 # Write a loop that:
 #
 # * Prints the current room name
@@ -49,3 +53,46 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+        
+#     except:
+#         print("I'm not sure where the player wondered off to. Pick a different direction")
+#         direction = input('Pick a direction. (n, s, e, w) or q to quit ')
+
+def get_key(val): 
+    for key, value in room.items(): 
+         if val == value: 
+             return key 
+  
+    return "key doesn't exist"
+
+game_playing = True
+
+while game_playing == True:
+    print(player)
+    print(room[player.current_room].description)
+    direction = input('Pick a direction. (n, s, e, w) or q to quit ')
+
+    if direction == 'q':
+        break
+    elif direction == 'n' and hasattr(room[player.current_room], 'n_to'):
+        full_new_room = room[player.current_room].n_to
+        new_room = get_key(full_new_room)
+        player.current_room = new_room
+
+    elif direction == 's' and hasattr(room[player.current_room], 's_to'):
+        full_new_room = room[player.current_room].s_to
+        new_room = get_key(full_new_room)
+        player.current_room = new_room
+
+    elif direction == 'e' and hasattr(room[player.current_room], 'e_to'):
+        full_new_room = room[player.current_room].e_to
+        new_room = get_key(full_new_room)
+        player.current_room = new_room
+
+    elif direction == 'w' and hasattr(room[player.current_room], 'w_to'):
+        full_new_room = room[player.current_room].w_to
+        new_room = get_key(full_new_room)
+        player.current_room = new_room
+    else:
+        direction = input("I'm not sure where the player wondered off to. Press any key to go back ")
+
