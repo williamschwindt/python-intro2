@@ -4,4 +4,4 @@ class Player:
         self.current_room = current_room
         self.items = items
     def __str__(self):
-        return f'your location: {self.current_room}'
+        return f' Your location: {self.current_room}'
